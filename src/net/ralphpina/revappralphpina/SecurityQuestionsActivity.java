@@ -2,8 +2,10 @@ package net.ralphpina.revappralphpina;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -15,7 +17,9 @@ import android.widget.Spinner;
 
 public class SecurityQuestionsActivity extends Activity {
 	
-	//private RevUtils revUtils;
+	public static final String TAG = "SecurityQuestionsActivity"; 
+	
+	private RevUtils revUtils;
 	private Spinner questionSpinner1;
 	private Spinner questionSpinner2;
 	private EditText editTextAnswer1;
@@ -30,10 +34,10 @@ public class SecurityQuestionsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_security_questions);
 		
-		//revUtils = RevUtils.getInstance();
-		//revUtils.getAvailableSecurityQuestions();
+		revUtils = RevUtils.getInstance();
+		revUtils.getAvailableSecurityQuestions();
 		
-		questionSpinner1 = (Spinner) findViewById(R.id.spinnerSecurityQuestion1);
+		questionSpinner1 = (Spinner) findViewById(R.id.spinnerSecurityQuestionNum1);
 		questionSpinner1.setOnItemSelectedListener(new OnItemSelectedListener() {
 			
 			@Override
@@ -119,15 +123,14 @@ public class SecurityQuestionsActivity extends Activity {
 	}
 	
 	private boolean validate(EditText field) {
+		Log.e(TAG, "validate called");
 		String answer = null;
 		
 		try {
-			answer = editTextAnswer1.getText().toString();
+			answer = field.getText().toString();
+			Log.e(TAG, "answer = " + answer);
+			Log.e(TAG, "answer.trim().length() = " + answer.trim().length());
 		} catch (NullPointerException e) {
-			return false;
-		}
-		
-		if (answer == null) {
 			return false;
 		}
 		
@@ -142,6 +145,11 @@ public class SecurityQuestionsActivity extends Activity {
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		alertDialogBuilder.setTitle("Validation Error!");
 		alertDialogBuilder.setMessage(message);
+		alertDialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+	           public void onClick(DialogInterface dialog, int id) {
+	        	   dialog.dismiss();
+	           }
+	    });
 		alertDialogBuilder.setCancelable(true);
 		AlertDialog alertDialog = alertDialogBuilder.create();
 		alertDialog.show();

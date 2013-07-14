@@ -8,16 +8,10 @@ import java.net.CookiePolicy;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 
 import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 
 import org.apache.http.util.ByteArrayBuffer;
 import org.json.JSONObject;
@@ -59,23 +53,21 @@ public class RevUtils {
 			cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_NONE);
 			CookieHandler.setDefault(cookieManager);
 			
-			System.setProperty("http.keepAlive", "false");
-			
 			try {
-				url = new URL(new URI("https://api-qa2.revworldwide.com/v1/securityQuestions/").toASCIIString());
+				url = new URL(new URI("https://api-qa2.revworldwide.com/v1/securityQuestions").toASCIIString());
 				connection = (HttpURLConnection) url.openConnection();
 				TrustModifier.relaxHostChecking(connection); // here's where the magic happens
-				connection.setRequestMethod("GET");
 				connection.setDoInput(true);
 				connection.setUseCaches(false);	
-				connection.setRequestProperty("Accept", "application/xml");
+				connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+				connection.setRequestProperty("Accept", "application/json");
 
-				//String response = readResponse(connection.getInputStream());
+				String response = readResponse(connection.getInputStream());
 				
 				Log.e(TAG, "response code = " + connection.getResponseCode());
 				Log.e(TAG, "response message = " + connection.getResponseMessage());
 				
-				return new JSONObject("");
+				return new JSONObject(response);
 				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -110,36 +102,5 @@ public class RevUtils {
 			return true;
 		}
 	};
-
-	/**
-	 * From http://stackoverflow.com/questions/995514/https-connection-android
-	 * Trust every server - dont check for any certificate
-	 */
-	private static void trustAllHosts() {
-		// Create a trust manager that does not validate certificate chains
-		TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
-			public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-				return new java.security.cert.X509Certificate[] {};
-			}
-
-			public void checkClientTrusted(X509Certificate[] chain,
-					String authType) throws CertificateException {
-			}
-
-			public void checkServerTrusted(X509Certificate[] chain,
-					String authType) throws CertificateException {
-			}
-		} };
-
-		// Install the all-trusting trust manager
-		try {
-			SSLContext sc = SSLContext.getInstance("TLS");
-			sc.init(null, trustAllCerts, new java.security.SecureRandom());
-			HttpsURLConnection
-					.setDefaultSSLSocketFactory(sc.getSocketFactory());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 }

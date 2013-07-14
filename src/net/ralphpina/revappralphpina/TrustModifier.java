@@ -1,3 +1,10 @@
+/**
+ * I used the sample code provided in the blog post 
+ * http://www.obsidianscheduler.com/blog/ignoring-self-signed-certificates-in-java/
+ * 
+ * I have not previously worked with SSL certificates
+ */
+
 package net.ralphpina.revappralphpina;
 
 import java.net.*;

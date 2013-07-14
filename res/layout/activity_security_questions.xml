@@ -29,20 +29,19 @@
         android:text="@string/SecurityQuestion.Question1" />
     
     <Spinner
-        android:id="@+id/spinnerSecurityQuestion1"
+        android:id="@+id/spinnerSecurityQuestionNum1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textViewSecurityQuestion1"
-        android:prompt="@string/SecurityQuestion.selectQuestion" />
+        android:layout_below="@+id/textViewSecurityQuestion1" />
 
     <EditText
         android:id="@+id/editTextSecurityQuestion1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/spinnerSecurityQuestion1"
-        android:layout_alignRight="@+id/spinnerSecurityQuestion1"
-        android:layout_below="@+id/spinnerSecurityQuestion1"
+        android:layout_alignLeft="@+id/spinnerSecurityQuestionNum1"
+        android:layout_alignRight="@+id/spinnerSecurityQuestionNum1"
+        android:layout_below="@+id/spinnerSecurityQuestionNum1"
         android:ems="10"
         android:hint="@string/SecurityQuestion.answer"
         android:inputType="text" >
@@ -63,8 +62,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textViewSecurityQuestion2"
-        android:prompt="@string/SecurityQuestion.selectQuestion" />
+        android:layout_below="@+id/textViewSecurityQuestion2" />
 
     <EditText
         android:id="@+id/editTextSecurityQuestion2"

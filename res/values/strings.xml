@@ -4,6 +4,8 @@
     <string name="app_name">RevAppRalphPina</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="SecurityQuestion.confirmation">Confirmation</string>
+    
     
     <!-- Buttons -->
 	<string name="Button.enter">Enter</string>
@@ -53,8 +55,6 @@
 	<string name="SecurityQuestion.PATERNAL_GRANDFATHER">First name of your paternal grandfather?</string>
 	<string name="SecurityQuestion.MATERNAL_GRANDMOTHER">First name of your maternal grandmother?</string>
 	<string name="SecurityQuestion.SCHOOL_NICKNAME">What was your nickname in school?</string>
-	
-	<string name="SecurityQuestion.confirmation">Confirmation</string>
 	
 	<!-- Error -->
 	<string name="Error.networkError">An unexpected error occurred when trying to contact the server. Please try again later.</string>

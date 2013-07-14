@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -17,7 +16,7 @@ import android.widget.Spinner;
 
 public class SecurityQuestionsActivity extends Activity {
 	
-	public static final String TAG = "SecurityQuestionsActivity"; 
+	//private static final String TAG = "SecurityQuestionsActivity"; 
 	
 	private RevUtils revUtils;
 	private Spinner questionSpinner1;
@@ -28,21 +27,56 @@ public class SecurityQuestionsActivity extends Activity {
 	
 	private String question1;
 	private String question2;
+	private boolean firstTimeLoadingSpinner1;
+	private boolean firstTimeLoadingSpinner2;
+	private int posSpinner1;
+	private int posSpinner2;
+	
+	private ArrayAdapter<String> adapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_security_questions);
-		
-		revUtils = RevUtils.getInstance();
-		revUtils.getAvailableSecurityQuestions();
-		
+		populateView();
+		revUtils = RevUtils.getInstance(this);
+		populateData();		
+	}
+
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		firstTimeLoadingSpinner1 = true;
+		firstTimeLoadingSpinner2 = true;
+		posSpinner1 = 0;
+		posSpinner2 = 0;
+		question1 = null;
+		question2 = null;
+		editTextAnswer1.setText("");
+		editTextAnswer2.setText("");
+		revUtils.callServerforQuestions();
+	}
+
+	private void populateView() {
 		questionSpinner1 = (Spinner) findViewById(R.id.spinnerSecurityQuestionNum1);
 		questionSpinner1.setOnItemSelectedListener(new OnItemSelectedListener() {
 			
 			@Override
 		    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-		        question1 = (String) parent.getItemAtPosition(pos);
+				if (pos == 0 && !firstTimeLoadingSpinner1) {
+					showErrorDialog(getString(R.string.SecurityQuestion_selectQuestion));
+					firstTimeLoadingSpinner1 = true;
+					questionSpinner1.setSelection(posSpinner1, false);
+				} else if (pos == questionSpinner2.getSelectedItemPosition() && !firstTimeLoadingSpinner1) {
+					showErrorDialog(getString(R.string.SecurityQuestion_Validation_sameQuestionTwice));
+					firstTimeLoadingSpinner1 = true;
+					questionSpinner1.setSelection(posSpinner1, false);
+				} else if (!firstTimeLoadingSpinner2){
+					question1 = (String) parent.getItemAtPosition(pos);
+					posSpinner1 = pos;
+				}
+				firstTimeLoadingSpinner1 = false;
 		    }
 
 			@Override
@@ -56,7 +90,19 @@ public class SecurityQuestionsActivity extends Activity {
 			
 			@Override
 		    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-		        question2 = (String) parent.getItemAtPosition(pos);
+				if (pos == 0 && !firstTimeLoadingSpinner2) {
+					showErrorDialog(getString(R.string.SecurityQuestion_selectQuestion));
+					firstTimeLoadingSpinner2 = true;
+					questionSpinner2.setSelection(posSpinner2, false);
+				} else if (pos == questionSpinner1.getSelectedItemPosition() && !firstTimeLoadingSpinner2) {
+					showErrorDialog(getString(R.string.SecurityQuestion_Validation_sameQuestionTwice));
+					firstTimeLoadingSpinner2 = true;
+					questionSpinner2.setSelection(posSpinner2, false); 
+				} else if (!firstTimeLoadingSpinner2) {
+					question2 = (String) parent.getItemAtPosition(pos);
+					posSpinner2 = pos;
+				}
+				firstTimeLoadingSpinner2 = false;
 		    }
 
 			@Override
@@ -82,16 +128,19 @@ public class SecurityQuestionsActivity extends Activity {
 				}				
 			}
 		});
-		
-		// Create an ArrayAdapter using the string array and a default spinner layout
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-		        R.array.planets_array, android.R.layout.simple_spinner_item);
-		// Specify the layout to use when the list of choices appears
+	}
+	
+	private void populateData() {
+		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, revUtils.getAvailableSecurityQuestions());
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		// Apply the adapter to the spinner
 		questionSpinner1.setAdapter(adapter);
 		questionSpinner2.setAdapter(adapter);
+	}
 	
+	public void dataChanged() {
+		adapter.notifyDataSetChanged();
+		questionSpinner1.setSelection(0);
+		questionSpinner2.setSelection(0);
 	}
 	
 	private boolean validateAndShowError() {
@@ -123,13 +172,10 @@ public class SecurityQuestionsActivity extends Activity {
 	}
 	
 	private boolean validate(EditText field) {
-		Log.e(TAG, "validate called");
 		String answer = null;
 		
 		try {
 			answer = field.getText().toString();
-			Log.e(TAG, "answer = " + answer);
-			Log.e(TAG, "answer.trim().length() = " + answer.trim().length());
 		} catch (NullPointerException e) {
 			return false;
 		}
@@ -143,7 +189,7 @@ public class SecurityQuestionsActivity extends Activity {
 	
 	private void showErrorDialog(String message) {
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-		alertDialogBuilder.setTitle("Validation Error!");
+		alertDialogBuilder.setTitle(R.string.SecurityQuestion_Validation_error);
 		alertDialogBuilder.setMessage(message);
 		alertDialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 	           public void onClick(DialogInterface dialog, int id) {

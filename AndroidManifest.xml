@@ -17,24 +17,32 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="net.ralphpina.revappralphpina.MainActivity"
-            android:label="@string/Language.language" >
+            android:label="@string/Language.language" 
+            android:configChanges="orientation"
+    		android:screenOrientation="portrait">
             
         </activity>
         <activity
             android:name=".SecurityQuestionsActivity"
-            android:label="@string/SecurityQuestion.securityQuestion" >
+            android:label="@string/SecurityQuestion.securityQuestion" 
+            android:configChanges="orientation"
+    		android:screenOrientation="portrait">
             
         </activity>
         
         <activity
             android:name=".ConfirmationActivity"
-            android:label="@string/SecurityQuestion.confirmation" >
+            android:label="@string/SecurityQuestion.confirmation" 
+            android:configChanges="orientation"
+    		android:screenOrientation="portrait" >
             
         </activity>
         
         <activity
             android:name=".SplashScreen"
-            android:theme="@android:style/Theme.Holo.NoActionBar">
+            android:theme="@android:style/Theme.Holo.NoActionBar"
+            android:configChanges="orientation"
+    		android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

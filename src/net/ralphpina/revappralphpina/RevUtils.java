@@ -9,13 +9,13 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
+import java.util.Iterator;
 
 import org.apache.http.util.ByteArrayBuffer;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.res.Resources.NotFoundException;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -26,22 +26,28 @@ public class RevUtils {
 	private static RevUtils revUtils;
 	private HttpURLConnection connection;
 	private URL url;
+	private SecurityQuestionsActivity activity;
+	private ArrayList<String> securityQuestions;
 	
-	public static RevUtils getInstance() {
+	public static RevUtils getInstance(SecurityQuestionsActivity activity) {
 		if (revUtils == null) {
-			revUtils = new RevUtils();
+			revUtils = new RevUtils(activity);
 		}
-			
 		return revUtils;
 	}
 	
-	private RevUtils() {
+	private RevUtils(SecurityQuestionsActivity activity) {
+		this.activity = activity;
+		securityQuestions = new ArrayList<String>();
+	}
+	
+	public void callServerforQuestions() {
 		new ApiTransaction().execute();
 	}
 	
 	public ArrayList<String> getAvailableSecurityQuestions() {
 		
-		return new ArrayList<String>();
+		return securityQuestions;
 	}
 	
 	private class ApiTransaction extends AsyncTask<String, Integer, JSONObject> {
@@ -54,6 +60,7 @@ public class RevUtils {
 			CookieHandler.setDefault(cookieManager);
 			
 			try {
+				System.setProperty("http.keepAlive", "false");
 				url = new URL(new URI("https://api-qa2.revworldwide.com/v1/securityQuestions").toASCIIString());
 				connection = (HttpURLConnection) url.openConnection();
 				TrustModifier.relaxHostChecking(connection); // here's where the magic happens
@@ -63,9 +70,6 @@ public class RevUtils {
 				connection.setRequestProperty("Accept", "application/json");
 
 				String response = readResponse(connection.getInputStream());
-				
-				Log.e(TAG, "response code = " + connection.getResponseCode());
-				Log.e(TAG, "response message = " + connection.getResponseMessage());
 				
 				return new JSONObject(response);
 				
@@ -78,8 +82,7 @@ public class RevUtils {
 		}
 		
 		protected void onPostExecute(JSONObject result) {
-			Log.e(TAG, result.toString());
-			
+			processResponse(result);
 		}
 		
 		private String readResponse(InputStream stream) throws IOException {
@@ -96,11 +99,37 @@ public class RevUtils {
 		}
 	}
 	
-	// always verify the host - dont check for certificate
-	final static HostnameVerifier DO_NOT_VERIFY = new HostnameVerifier() {
-		public boolean verify(String hostname, SSLSession session) {
-			return true;
+	private void processResponse(JSONObject result) {
+		try {
+			securityQuestions.clear();
+			securityQuestions.add("Select a question");
+			@SuppressWarnings("unchecked")
+			Iterator<String> itr = result.keys();
+			while (itr.hasNext()) {
+				String questionNumber = itr.next();
+				String questionCode = result.getString(questionNumber);
+				securityQuestions.add(getStringResourceByName("SecurityQuestion." + questionCode));
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			activity.dataChanged();
 		}
-	};
+	}
+	
+	private String getStringResourceByName(String string) {
+	      String packageName = activity.getPackageName();
+	      int resId = activity.getResources().getIdentifier(string, "string", packageName);
+	      String question = null;
+	      try {
+	    	  question = activity.getString(resId);
+	      } catch (NotFoundException e) {
+	    	  question = string.substring(string.indexOf(".") + 1);
+	    	  Log.i(TAG, "Using " + question);
+	      }
+	      return question;
+	}
+
 
 }

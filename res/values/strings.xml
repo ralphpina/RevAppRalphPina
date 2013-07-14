@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RevAppRalphPina</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    
+    <!-- Buttons -->
+	<string name="Button.enter">Enter</string>
+	<string name="Button.back">Back</string>
+	<string name="Button.next">Next</string>
+	<string name="Button.restart">Restart</string>
+	<string name="Button.selectAnotherQuestion">Select Another Question</string>
+	<string name="Button.editAnswers">Edit Answers</string>
+	
+	<!-- Language Setup -->
+	<string name="Language.language">Language</string>
+	<string name="Language.english">English</string>
+	<string name="Language.spanish">Spanish</string>
+	<string name="Language.selectLanguage">Please select your preferred language:</string>
+	
+	<!-- Security Questions -->
+	<string name="SecurityQuestion.securityQuestion">Security Questions</string>
+	<string name="SecurityQuestion.answer">Answer</string>
+	<string name="SecurityQuestion.pleaseAnswer">Please select and answer your security questions.</string>
+	<string name="SecurityQuestion.selectQuestion">Select Question</string>
+	<string name="SecurityQuestion.Question1"> Security Question 1</string>
+	<string name="SecurityQuestion.Question2"> Security Question 2</string>
+	<string name="SecurityQuestion.finished">Congratulations, you have setup your security questions.</string>
+	<string name="SecurityQuestion.question.prefix">Q:</string>
+	<string name="SecurityQuestion.answer.prefix">A:</string>
+	
+	<!-- Security Question Validation -->
+	<string name="SecurityQuestion.Validation.error">Validation Error</string>
+	<string name="SecurityQuestion.Validation.sameQuestionTwice">You cannot select the same question twice.</string>
+	<string name="SecurityQuestion.Validation.provideAnAnswer">You must provide answers.</string>
+	
+	<!-- Security Questions Copy in English -->
+	<string name="SecurityQuestion.DOB">What is your date of birth?</string>
+	<string name="SecurityQuestion.CITY_BORN">In what city were you born?</string>
+	<string name="SecurityQuestion.FATHERS_PHONE">What are the last four digits of your father\'s home phone number?</string>
+	<string name="SecurityQuestion.FAV_COLOR">What is your favorite color?</string>
+	<string name="SecurityQuestion.FAV_FOOD">What is your favorite food?</string>
+	<string name="SecurityQuestion.FAV_ICECREAN">What is your favorite ice cream?</string>
+	<string name="SecurityQuestion.FAV_PET">What is your favorite pet?</string>
+	<string name="SecurityQuestion.FAV_SODA">What is your favorite soda?</string>
+	<string name="SecurityQuestion.IMPORTANT_DAY">What is your most important day? (DDMM)</string>
+	<string name="SecurityQuestion.MOTHERS_ZIP">What are the last four digits of your mother\'s zip code?</string>
+	<string name="SecurityQuestion.MOTHERS_BIRTHDAY">What is your mother\'s birthday? (DDMM)</string>
+	<string name="SecurityQuestion.2ND_GRADE_SCHOOL">What school did you attend in 2nd grade?</string>
+	<string name="SecurityQuestion.FIRST_PET">What was your first pet\'s name?</string>
+	<string name="SecurityQuestion.FIRST_BG_FRIEND">Name of your first boyfriend/girlfriend?</string>
+	<string name="SecurityQuestion.PATERNAL_GRANDFATHER">First name of your paternal grandfather?</string>
+	<string name="SecurityQuestion.MATERNAL_GRANDMOTHER">First name of your maternal grandmother?</string>
+	<string name="SecurityQuestion.SCHOOL_NICKNAME">What was your nickname in school?</string>
+	
+	<string name="SecurityQuestion.confirmation">Confirmation</string>
+	
+	<!-- Error -->
+	<string name="Error.networkError">An unexpected error occurred when trying to contact the server. Please try again later.</string>
+
+</resources>

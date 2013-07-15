@@ -11,8 +11,6 @@
     <TextView
         android:id="@+id/textViewConfirmation"
         style="@style/ScreenTextLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
@@ -20,8 +18,7 @@
 
     <TextView
         android:id="@+id/textViewSecurityQuestion1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/SelectionHeaders"
         android:layout_alignLeft="@+id/textViewConfirmation"
         android:layout_alignRight="@+id/textViewConfirmation"
         android:layout_below="@+id/textViewConfirmation"
@@ -30,8 +27,7 @@
 
     <TextView
         android:id="@+id/textViewQuestion1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Answers"
         android:layout_alignLeft="@+id/textViewSecurityQuestion1"
         android:layout_below="@+id/textViewSecurityQuestion1"
         android:layout_marginTop="14dp"
@@ -39,8 +35,7 @@
 
     <TextView
         android:id="@+id/textViewAnswer1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Answers"
         android:layout_alignLeft="@+id/textViewSecurityQuestion2"
         android:layout_below="@+id/textViewQuestion1"
         android:layout_marginTop="16dp"
@@ -48,8 +43,7 @@
 
     <TextView
         android:id="@+id/textViewSecurityQuestion2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/SelectionHeaders"
         android:layout_alignLeft="@+id/textViewQuestion1"
         android:layout_below="@+id/textViewAnswer1"
         android:layout_marginTop="21dp"
@@ -57,8 +51,7 @@
     
     <TextView
         android:id="@+id/textViewQuestion2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Answers"
         android:layout_alignLeft="@+id/textViewSecurityQuestion2"
         android:layout_below="@+id/textViewSecurityQuestion2"
         android:layout_marginTop="16dp"
@@ -66,21 +59,15 @@
 
     <TextView
         android:id="@+id/textViewAnswer2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Answers"
         android:layout_alignLeft="@+id/textViewQuestion2"
         android:layout_below="@+id/textViewQuestion2"
         android:layout_marginTop="14dp"
         android:text="@string/SecurityQuestion.answer.prefix" />
-    
+
     <Button
         android:id="@+id/buttonRestart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="18dp"
+        style="@style/Buttons"
         android:text="@string/Button.restart" />
 
 </RelativeLayout>

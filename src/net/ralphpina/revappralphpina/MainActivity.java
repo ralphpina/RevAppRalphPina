@@ -31,8 +31,8 @@ public class MainActivity extends Activity {
 		languages.add(getString(R.string.Language_english));
 		languages.add(getString(R.string.Language_spanish));
 		
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, languages);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, languages);
+		adapter.setDropDownViewResource(R.layout.spinner_item);
 		spinnerLanguage.setAdapter(adapter);
 		
 		spinnerLanguage.setOnItemSelectedListener(new OnItemSelectedListener() {

@@ -2,6 +2,7 @@
 <resources>
     
     <string name="app_name">RevAppRalphPina</string>
+    <string name="icon_content_desp">splash icon</string>
     <string name="SecurityQuestion.confirmation">Confirmacion</string> 
 	 <string name="loading">Cargando</string>
 	 <string name="wait_loading">Espere mientras cargamos la info&#8230;</string>
@@ -37,6 +38,7 @@
 	<string name="SecurityQuestion.Validation.provideAnAnswer">Debe proporcionar respuestas.</string>
 	
 	<!-- Security Questions copy in Spanish -->
+	<string name="SecurityQuestion.DOB">¿En qué dia naciste?</string>
 	<string name="SecurityQuestion.CITY_BORN">¿En qué ciudad naciste?</string>
 	<string name="SecurityQuestion.FATHERS_PHONE">¿Cuáles son los último cuatro dígitos del número de teléfono de tu padre?</string>
 	<string name="SecurityQuestion.FAV_COLOR">¿Cuál es tu color favorito?</string>

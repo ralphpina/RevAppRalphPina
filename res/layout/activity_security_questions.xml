@@ -11,8 +11,6 @@
     <TextView
         android:id="@+id/secutityQuestionsTopTextView"
         style="@style/ScreenTextLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
@@ -20,8 +18,7 @@
 
     <TextView
         android:id="@+id/textViewSecurityQuestion1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/SelectionHeaders"
         android:layout_alignLeft="@+id/secutityQuestionsTopTextView"
         android:layout_alignRight="@+id/secutityQuestionsTopTextView"
         android:layout_below="@+id/secutityQuestionsTopTextView"
@@ -50,8 +47,7 @@
 
     <TextView
         android:id="@+id/textViewSecurityQuestion2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/SelectionHeaders"
         android:layout_alignLeft="@+id/editTextSecurityQuestion1"
         android:layout_below="@+id/editTextSecurityQuestion1"
         android:layout_marginTop="36dp"
@@ -77,12 +73,7 @@
 
     <Button
         android:id="@+id/buttonNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="18dp"
+        style="@style/Buttons"
         android:text="@string/Button.next" />
 
 

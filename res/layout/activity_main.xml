@@ -10,23 +10,15 @@
 
     <Button
         android:id="@+id/mainActivityNextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="18dp"
+        style="@style/Buttons"
         android:text="@string/Button.next" />
-
+    
     <TextView
-        android:id="@+id/textViewMain"
-        style="@style/ScreenTextLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="74dp"
-        android:text="@string/Language.selectLanguage" />
+        android:id="@+id/textViewLanguagePromp"
+        style="@style/SelectionHeaders"
+        android:layout_above="@+id/spinnerLanguageSelection"
+        android:layout_alignLeft="@+id/spinnerLanguageSelection"
+        android:text="@string/Language.language" />
 
     <Spinner
         android:id="@+id/spinnerLanguageSelection"
@@ -34,5 +26,13 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textViewMain"
         android:layout_centerVertical="true" />
+
+    <TextView
+        android:id="@+id/textViewMain"
+        style="@style/ScreenTextLarge"
+        android:layout_above="@+id/textViewLanguagePromp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="26dp"
+        android:text="@string/Language.selectLanguage" />
 
 </RelativeLayout>

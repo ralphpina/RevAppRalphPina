@@ -167,7 +167,7 @@ public class SecurityQuestionsActivity extends Activity {
 	}
 	
 	private void populateData() {
-		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, revUtils.getAvailableSecurityQuestions());
+		adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, revUtils.getAvailableSecurityQuestions());
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		questionSpinner1.setAdapter(adapter);
 		questionSpinner2.setAdapter(adapter);

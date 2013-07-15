@@ -28,10 +28,10 @@ public class ConfirmationActivity extends Activity {
 		answer2 = (TextView) findViewById(R.id.textViewAnswer2);
 		
 		Intent qandaIntent = getIntent();
-		questionSelected1.setText(qandaIntent.getStringExtra("security_question_1"));
-		answer1.setText(qandaIntent.getStringExtra("security_answer_1"));
-		questionSelected2.setText(qandaIntent.getStringExtra("security_question_2"));
-		answer2.setText(qandaIntent.getStringExtra("security_answer_2"));
+		questionSelected1.setText(questionSelected1.getText() + " " + qandaIntent.getStringExtra("security_question_1"));
+		answer1.setText(answer1.getText() + " " + qandaIntent.getStringExtra("security_answer_1"));
+		questionSelected2.setText(questionSelected2.getText() + " " + qandaIntent.getStringExtra("security_question_2"));
+		answer2.setText(answer2.getText() + " " + qandaIntent.getStringExtra("security_answer_2"));
 				
 		restartButton = (Button) findViewById(R.id.buttonRestart);
 		restartButton.setOnClickListener(new OnClickListener() {

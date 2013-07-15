@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="app_name">RevAppRalphPina</string>
+    <string name="SecurityQuestion.confirmation">Confirmacion</string> 
+	 <string name="loading">Cargando</string>
+	 <string name="wait_loading">Espere mientras cargamos la info&#8230;</string>
+    
+	<!-- Buttons -->
+	<string name="Button.enter">Ingresar</string>
+	<string name="Button.back">Regresar</string>
+	<string name="Button.next">Siguiente</string>
+	<string name="Button.restart">Reiniciar</string>
+	<string name="Button.selectAnotherQuestion">Seleccionar otra pregunta</string>
+	<string name="Button.editAnswers">Edite sus respuestas</string>
+	
+	<!-- Language Setup -->
+	<string name="Language.language">Idioma</string>
+	<string name="Language.english">Inglés</string>
+	<string name="Language.spanish">Espanol</string>
+	<string name="Language.selectLanguage">Por favor seleccione su idioma preferido.</string>
+	
+	<!-- Security Questions -->
+	<string name="SecurityQuestion.securityQuestion">Pregunta de seguridad</string>
+	<string name="SecurityQuestion.answer">Respuesta</string>
+	<string name="SecurityQuestion.pleaseAnswer">Por favor, seleccionar y responder a sus preguntas de seguridad.</string>
+	<string name="SecurityQuestion.selectQuestion">Seleccionar pregunta</string>
+	<string name="SecurityQuestion.Question1"> Pregunta de seguridad 1</string>
+	<string name="SecurityQuestion.Question2"> Pregunta de seguridad 2</string>
+	<string name="SecurityQuestion.finished">Felicitaciones, usted tiene configurar sus preguntas de seguridad.</string>
+	<string name="SecurityQuestion.question.prefix">Q:</string>
+	<string name="SecurityQuestion.answer.prefix">A:</string>
+	
+	<!-- Security Question Validation -->
+	<string name="SecurityQuestion.Validation.error">Error de validación</string>
+	<string name="SecurityQuestion.Validation.sameQuestionTwice">No se puede seleccionar la misma pregunta dos veces.</string>
+	<string name="SecurityQuestion.Validation.provideAnAnswer">Debe proporcionar respuestas.</string>
+	
+	<!-- Security Questions copy in Spanish -->
+	<string name="SecurityQuestion.CITY_BORN">¿En qué ciudad naciste?</string>
+	<string name="SecurityQuestion.FATHERS_PHONE">¿Cuáles son los último cuatro dígitos del número de teléfono de tu padre?</string>
+	<string name="SecurityQuestion.FAV_COLOR">¿Cuál es tu color favorito?</string>
+	<string name="SecurityQuestion.FAV_FOOD">¿Cuál es tu comida favorita?</string>
+	<string name="SecurityQuestion.FAV_ICECREAN">¿Cuál es tu helado favorito?</string>
+	<string name="SecurityQuestion.FAV_PET">¿Cuál es tu mascota favorita?</string>
+	<string name="SecurityQuestion.FAV_SODA">¿Cuál es tu gaseosa favorita?</string>
+	<string name="SecurityQuestion.IMPORTANT_DAY">¿Cuál es el día más importante de tu vida? (DDMM)</string>
+	<string name="SecurityQuestion.MOTHERS_ZIP">¿Cuáles son los último cuatro dígitos del código postal de tu madre?</string>
+	<string name="SecurityQuestion.MOTHERS_BIRTHDAY">¿Cuándo es el cumpleaños de tu madre? (DDMM)</string>
+	<string name="SecurityQuestion.2ND_GRADE_SCHOOL">¿A qué escuela fuiste en 2º grado?</string>
+	<string name="SecurityQuestion.FIRST_PET">¿Cuál era el nombre de tu primera mascota?</string>
+	<string name="SecurityQuestion.FIRST_BG_FRIEND">¿Cuál es el nombre de tu primer/primera novio/novia?</string>
+	<string name="SecurityQuestion.PATERNAL_GRANDFATHER">¿Primer nombre de tu abuelo paterno?</string>
+	<string name="SecurityQuestion.MATERNAL_GRANDMOTHER">¿Primer nombre de tu abuela materna?</string>
+	<string name="SecurityQuestion.SCHOOL_NICKNAME">¿Cuál era tu apodo en la escuela?</string>
+	
+	<!-- Error -->
+	<string name="Error.networkError">Ha ocurrido un error. ¿Debemos tratar otra vez ahora?</string>
+   
+</resources>

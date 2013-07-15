@@ -2,8 +2,12 @@ package net.ralphpina.revappralphpina;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,17 +31,23 @@ public class SecurityQuestionsActivity extends Activity {
 	
 	private String question1;
 	private String question2;
-	private boolean firstTimeLoadingSpinner1;
-	private boolean firstTimeLoadingSpinner2;
+	private boolean resetSpinner1;
+	private boolean resetSpinner2;
 	private int posSpinner1;
 	private int posSpinner2;
 	
 	private ArrayAdapter<String> adapter;
+	private Context context;
+	public ProgressDialog progress;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_security_questions);
+		context = this;
+		progress = new ProgressDialog(this);
+		progress.setTitle(R.string.loading);
+		progress.setMessage(getString(R.string.wait_loading));
 		populateView();
 		revUtils = RevUtils.getInstance(this);
 		populateData();		
@@ -47,15 +57,35 @@ public class SecurityQuestionsActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		firstTimeLoadingSpinner1 = true;
-		firstTimeLoadingSpinner2 = true;
+		resetSpinner1 = true;
+		resetSpinner2 = true;
 		posSpinner1 = 0;
 		posSpinner2 = 0;
 		question1 = null;
 		question2 = null;
 		editTextAnswer1.setText("");
 		editTextAnswer2.setText("");
-		revUtils.callServerforQuestions();
+		
+		tryConnectingAndLoadingData();
+	}
+		
+	private void tryConnectingAndLoadingData() {
+		ConnectivityManager cm =
+		        (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+		 
+		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+		boolean isConnected;
+		if (activeNetwork == null) {
+			isConnected = false;
+		} else {
+			isConnected = activeNetwork.isConnectedOrConnecting();
+		}
+	
+		if (isConnected) {
+			revUtils.callServerforQuestions();
+		} else {
+			showNetworkErrorDialog();
+		}
 	}
 
 	private void populateView() {
@@ -64,19 +94,22 @@ public class SecurityQuestionsActivity extends Activity {
 			
 			@Override
 		    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				if (pos == 0 && !firstTimeLoadingSpinner1) {
-					showErrorDialog(getString(R.string.SecurityQuestion_selectQuestion));
-					firstTimeLoadingSpinner1 = true;
-					questionSpinner1.setSelection(posSpinner1, false);
-				} else if (pos == questionSpinner2.getSelectedItemPosition() && !firstTimeLoadingSpinner1) {
-					showErrorDialog(getString(R.string.SecurityQuestion_Validation_sameQuestionTwice));
-					firstTimeLoadingSpinner1 = true;
-					questionSpinner1.setSelection(posSpinner1, false);
-				} else if (!firstTimeLoadingSpinner2){
-					question1 = (String) parent.getItemAtPosition(pos);
-					posSpinner1 = pos;
+				if (!resetSpinner1) {
+					if (pos == 0) {
+						showErrorDialog(getString(R.string.SecurityQuestion_selectQuestion));
+						resetSpinner1 = true;
+						questionSpinner1.setSelection(posSpinner1, false);
+					} else if (pos == questionSpinner2.getSelectedItemPosition()) {
+						showErrorDialog(getString(R.string.SecurityQuestion_Validation_sameQuestionTwice));
+						resetSpinner1 = true;
+						questionSpinner1.setSelection(posSpinner1, false);
+					} else {
+						question1 = (String) parent.getItemAtPosition(pos);
+						posSpinner1 = pos;
+					}
+				} else {
+					resetSpinner1 = false;
 				}
-				firstTimeLoadingSpinner1 = false;
 		    }
 
 			@Override
@@ -90,19 +123,22 @@ public class SecurityQuestionsActivity extends Activity {
 			
 			@Override
 		    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				if (pos == 0 && !firstTimeLoadingSpinner2) {
-					showErrorDialog(getString(R.string.SecurityQuestion_selectQuestion));
-					firstTimeLoadingSpinner2 = true;
-					questionSpinner2.setSelection(posSpinner2, false);
-				} else if (pos == questionSpinner1.getSelectedItemPosition() && !firstTimeLoadingSpinner2) {
-					showErrorDialog(getString(R.string.SecurityQuestion_Validation_sameQuestionTwice));
-					firstTimeLoadingSpinner2 = true;
-					questionSpinner2.setSelection(posSpinner2, false); 
-				} else if (!firstTimeLoadingSpinner2) {
-					question2 = (String) parent.getItemAtPosition(pos);
-					posSpinner2 = pos;
+				if (!resetSpinner2) {
+					if (pos == 0) {
+						showErrorDialog(getString(R.string.SecurityQuestion_selectQuestion));
+						resetSpinner2 = true;
+						questionSpinner2.setSelection(posSpinner2, false);
+					} else if (pos == questionSpinner1.getSelectedItemPosition()) {
+						showErrorDialog(getString(R.string.SecurityQuestion_Validation_sameQuestionTwice));
+						resetSpinner2 = true;
+						questionSpinner2.setSelection(posSpinner2, false); 
+					} else {
+						question2 = (String) parent.getItemAtPosition(pos);
+						posSpinner2 = pos;
+					}
+				} else {
+					resetSpinner2 = false;
 				}
-				firstTimeLoadingSpinner2 = false;
 		    }
 
 			@Override
@@ -149,19 +185,19 @@ public class SecurityQuestionsActivity extends Activity {
 		
 		if (question1 == null) {
 			valid = false;
-			message.append("Choose question #1 \n");
+			message.append(getString(R.string.SecurityQuestion_selectQuestion) + " #1 \n");
 		} 
 		if (!validate(editTextAnswer1)) {
 			valid = false;
-			message.append("Provide answer #1 \n");
+			message.append(getString(R.string.SecurityQuestion_Validation_provideAnAnswer) + " #1 \n");
 		}
 		if (question2 == null) {
 			valid = false;
-			message.append("Choose question #2 \n");
+			message.append(getString(R.string.SecurityQuestion_selectQuestion) + " #2 \n");
 		} 
 		if (!validate(editTextAnswer2)) {
 			valid = false;
-			message.append("Provide answer #2");
+			message.append(getString(R.string.SecurityQuestion_Validation_provideAnAnswer) + " #2");
 		}
 		
 		if (!valid) {
@@ -197,6 +233,27 @@ public class SecurityQuestionsActivity extends Activity {
 	           }
 	    });
 		alertDialogBuilder.setCancelable(true);
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
+	}
+	
+	private void showNetworkErrorDialog() {
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		alertDialogBuilder.setTitle(R.string.SecurityQuestion_Validation_error);
+		alertDialogBuilder.setMessage(R.string.Error_networkError);
+		alertDialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+	           public void onClick(DialogInterface dialog, int id) {
+	        	   dialog.dismiss();
+	        	   tryConnectingAndLoadingData();
+	           }
+	    });
+		alertDialogBuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+	           public void onClick(DialogInterface dialog, int id) {
+	        	   dialog.dismiss();
+	               Intent goBack = new Intent(context, MainActivity.class);
+	               startActivity(goBack);
+	           }
+	       });
 		AlertDialog alertDialog = alertDialogBuilder.create();
 		alertDialog.show();
 	}

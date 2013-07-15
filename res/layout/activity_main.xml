@@ -18,38 +18,21 @@
         android:layout_marginRight="18dp"
         android:text="@string/Button.next" />
 
-    <RadioGroup
-        android:id="@+id/radioLanguageSelection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:orientation="vertical" >
-
-        <RadioButton
-            android:id="@+id/englishRadioButton"
-            style="@style/LanguageSelectorText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/Language.english" />
-
-        <RadioButton
-            android:id="@+id/spanishRadioButton"
-            style="@style/LanguageSelectorText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Language.spanish" />
-    </RadioGroup>
-
     <TextView
         android:id="@+id/textViewMain"
         style="@style/ScreenTextLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/radioLanguageSelection"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="42dp"
+        android:layout_marginTop="74dp"
         android:text="@string/Language.selectLanguage" />
+
+    <Spinner
+        android:id="@+id/spinnerLanguageSelection"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewMain"
+        android:layout_centerVertical="true" />
 
 </RelativeLayout>

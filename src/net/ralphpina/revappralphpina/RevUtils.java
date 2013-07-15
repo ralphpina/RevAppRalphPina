@@ -31,17 +31,18 @@ public class RevUtils {
 	
 	public static RevUtils getInstance(SecurityQuestionsActivity activity) {
 		if (revUtils == null) {
-			revUtils = new RevUtils(activity);
+			revUtils = new RevUtils();
 		}
+		revUtils.activity = activity;
 		return revUtils;
 	}
 	
-	private RevUtils(SecurityQuestionsActivity activity) {
-		this.activity = activity;
+	private RevUtils() {
 		securityQuestions = new ArrayList<String>();
 	}
 	
 	public void callServerforQuestions() {
+		activity.progress.show();
 		new ApiTransaction().execute();
 	}
 	
@@ -82,6 +83,7 @@ public class RevUtils {
 		}
 		
 		protected void onPostExecute(JSONObject result) {
+			activity.progress.dismiss();
 			processResponse(result);
 		}
 		
@@ -102,7 +104,7 @@ public class RevUtils {
 	private void processResponse(JSONObject result) {
 		try {
 			securityQuestions.clear();
-			securityQuestions.add("Select a question");
+			securityQuestions.add(activity.getString(R.string.SecurityQuestion_selectQuestion));
 			@SuppressWarnings("unchecked")
 			Iterator<String> itr = result.keys();
 			while (itr.hasNext()) {

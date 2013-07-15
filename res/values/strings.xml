@@ -2,10 +2,10 @@
 <resources>
 
     <string name="app_name">RevAppRalphPina</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="SecurityQuestion.confirmation">Confirmation</string>
-    
+    <string name="icon_content_desp">splash icon</string>
+    <string name="SecurityQuestion.confirmation">Confirmation</string>   
+    <string name="loading">Loading</string>
+    <string name="wait_loading">Wait while loading&#8230;</string>
     
     <!-- Buttons -->
 	<string name="Button.enter">Enter</string>
@@ -57,6 +57,6 @@
 	<string name="SecurityQuestion.SCHOOL_NICKNAME">What was your nickname in school?</string>
 	
 	<!-- Error -->
-	<string name="Error.networkError">An unexpected error occurred when trying to contact the server. Please try again later.</string>
+	<string name="Error.networkError">An unexpected error occurred when trying to contact the server. Should we try again now?.</string>
 
 </resources>
